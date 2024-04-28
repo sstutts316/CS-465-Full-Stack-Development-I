@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TripDataService } from '../services/trip-data.service';
 import { Trip } from '../models/trip';
@@ -14,19 +14,19 @@ import { Trip } from '../models/trip';
 })
 
 export class EditTripComponent implements OnInit {
-  public editForm!: FormGroup;
-  trip!: Trip; // Declare the 'trip' variable
-  submitted = false;
-  message: string = '';
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private tripDataService: TripDataService
   ) { }
-  
+
+  public editForm!: FormGroup;
+  trip!: Trip;
+  submitted = false;
+  message: string = '';
+
+
   ngOnInit(): void {
-    
     // Retrieve stashed trip ID
     let tripCode = localStorage.getItem("tripCode");
     if (!tripCode) {
@@ -34,7 +34,6 @@ export class EditTripComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
-
     console.log('EditTripComponent::ngOnInit');
     console.log('tripcode:' + tripCode);
     this.editForm = this.formBuilder.group({
@@ -80,11 +79,8 @@ export class EditTripComponent implements OnInit {
           error: (error: any) => {
             console.log('Error: ' + error);
           }
-        });
+        })
     }
   }
-
-  // get the form short name to access the form fields
   get f() { return this.editForm.controls; }
 }
-
